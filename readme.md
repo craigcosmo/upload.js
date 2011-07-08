@@ -116,7 +116,7 @@ if(!IE){
 			alert('File <span style="color:red">'+name+'</span> size is too big. Max is 10MB');
 		},
 		onTypeError: function(name){
-			$.modal('File <span style="color:red">'+name+'</span> is not an image');
+			alert('File <span style="color:red">'+name+'</span> is not an image');
 		},
 		onSubmit: function(name, size, index){
 			$('li').eq(index).append('<span class="oriname" title="'+name+'">'+$.ellipsis(name,14)+'</span>');
@@ -136,7 +136,7 @@ if(!IE){
 				$('li').eq(index).find('.progress-bar-container').hide();
 			}else{
 				$('li').eq(index).remove();
-				$.modal(i.error);	
+				alert('upload fail');	
 			}
 		}
 	});
@@ -175,7 +175,7 @@ if(IE){
 				$('li').eq(index).find('.progress-bar-container').hide();
 			}else{
 				$('li').eq(index).remove();
-				alert(i.error);	
+				alert('upload fail');	
 			}
 		}
 	});
@@ -184,8 +184,10 @@ if(IE){
 ```
 ####Server
 ```php
+//detect browser
 if(preg_match('/(MSIE|opera)/i',$_SERVER['HTTP_USER_AGENT']))
 {
+	//if IE we access the uploaded file like this
 	$ori_name = $_FILES['userfile']['name'];
 	$file = $_FILES['userfile']['tmp_name'];
 	
@@ -197,6 +199,7 @@ if(preg_match('/(MSIE|opera)/i',$_SERVER['HTTP_USER_AGENT']))
 }
 else
 {
+	// if FF, Chrome, Safari we access the uploaded file like this
 	$ori_name = $_SERVER['HTTP_X_FILE_NAME'];		
 	$file = file_get_contents("php://input");
 	
