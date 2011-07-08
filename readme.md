@@ -128,7 +128,6 @@ if(!IE){
 			$('li').eq(index).fadeSlideWayRemove(120,120);
 		},
 		onComplete: function(name, size, index, response){
-			
 			var i = response;
 			if(i.status=='success'){
 				$('li').eq(index).prepend('<img src="'+ i.thumb_name+'" /><br>');
@@ -168,7 +167,8 @@ if(IE){
 		onLengthError:function(name, index){
 			alert('Maximum upload limit is 12');
 		},
-		onComplete:function(name,index, i){
+		onComplete:function(name,index, response){
+			var i = response;
 			if(i.status=='success'){
 				$('li').eq(index).prepend('<img src="'+i.thumb_name+'" /><br>');
 				$('li').eq(index).append('<a class="del" thumb="'+i.thumb_name+'" imageid="'+i.image_id+'" title="remove"></a>');
