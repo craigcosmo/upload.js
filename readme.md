@@ -1,18 +1,18 @@
-HTML5 AJAX upload
+#HTML5 AJAX upload
 
-======
+## Document
 
-AJAX upload for IE,FF,Chrome,Opera
+###Support
 
-#### Document
+IE7+,FF3+,Chrome,Safari
 
-##Requirement
+###Requirement
 
 jQuery 1.3+
 
-##Usage
+###Usage
 
-#Client
+####Client
 
 ```css
 .btn {
@@ -182,7 +182,7 @@ if(IE){
 }
 
 ```
-#Server
+####Server
 ```php
 if(preg_match('/(MSIE|opera)/i',$_SERVER['HTTP_USER_AGENT']))
 {
