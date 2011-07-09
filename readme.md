@@ -14,60 +14,6 @@ jQuery 1.3+
 
 ####Client
 
-```css
-.btn {
-	color: #FFF;
-	padding: 3px 10px;
-	cursor: pointer;
-	border: solid 1px #CCC;
-	border-bottom: 0;
-	border-top-right-radius: 4px;
-	border-top-left-radius: 4px;
-	line-height: 23px;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #333333;
-	background: -moz-linear-gradient(
-		top,
-		#ffffff 0%,
-		#c4c4c4);
-	background: -webkit-gradient(
-		linear, left top, left bottom, 
-		from(#ffffff),
-		to(#c4c4c4));
-	border-radius: 5px;
-	border: 0px solid #6b6b6b;
-	box-shadow:
-		0px 1px 1px rgba(107,107,107,0.5),
-		inset 0px 0px 1px rgba(046,046,046,0.7);
-	text-shadow:
-		0px 1px 1px #fff;
-}
-#file_browse_wrapper {
-    //background: none repeat scroll 0 0 #FFFFFF;
-    //color: #2058B5;
-    display: block;
-    float: left;
-    font-size: 11px;
-    overflow: hidden;
-    //padding: 5px 0 0;
-    position: relative;
-    //width: 77px;
-    margin:34px 0 0 40px;
-}
-#file-upload{
-    cursor: pointer;
-    font-size: 460px;
-    margin: 0;
-    opacity: 0;
-    padding: 0;
-    position: absolute; 
-    right: 0;
-    top: 0;
-    z-index: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-}
-```
-
 ```html
 <form id="uploadform">
 	<div id="file_browse_wrapper" class="btn">
@@ -119,19 +65,18 @@ if(!IE){
 			alert('File <span style="color:red">'+name+'</span> is not an image');
 		},
 		onSubmit: function(name, size, index){
-			$('li').eq(index).append('<span class="oriname" title="'+name+'">'+$.ellipsis(name,14)+'</span>');
+			$('li').eq(index).append('<span class="oriname" title="'+name+'">'+name+'</span>');
 		},
 		onProgress: function(name, size, index, loaded, progress){
 		
 		},
 		onCancel: function(name, size, index, loaded, progress){
-			$('li').eq(index).fadeSlideWayRemove(120,120);
+			$('li').eq(index).remove();
 		},
 		onComplete: function(name, size, index, response){
 			var i = response;
 			if(i.status=='success'){
 				$('li').eq(index).prepend('<img src="'+ i.thumb_name+'" /><br>');
-				$('li').eq(index).append('<a class="del" thumb="'+i.thumb_name+'" imageid="'+i.image_id+'" title="remove image"></a>');
 				$('li').eq(index).find('.progress-bar-container').hide();
 			}else{
 				$('li').eq(index).remove();
@@ -159,7 +104,7 @@ if(IE){
 		url:'<?= site_url("demo/ajax_upload/upload")?>',
 		maxLength:12,
 		onSubmit:function(name,index){
-			$('li').eq(index).append('<span class="oriname" title="'+name+'">'+$.ellipsis(name,15)+'</span>');
+			$('li').eq(index).append('<span class="oriname" title="'+name+'">'+name+'</span>');
 		},
 		onTypeError:function(name, index){
 			alert('File <span style="color:red">'+name+'</span> is not an image');
@@ -170,8 +115,7 @@ if(IE){
 		onComplete:function(name,index, response){
 			var i = response;
 			if(i.status=='success'){
-				$('li').eq(index).prepend('<img src="'+i.thumb_name+'" /><br>');
-				$('li').eq(index).append('<a class="del" thumb="'+i.thumb_name+'" imageid="'+i.image_id+'" title="remove"></a>');
+				$('li').eq(index).prepend('<img src="'+i.thumb_name+'" />');
 				$('li').eq(index).find('.progress-bar-container').hide();
 			}else{
 				$('li').eq(index).remove();
@@ -190,6 +134,7 @@ if(preg_match('/(MSIE|opera)/i',$_SERVER['HTTP_USER_AGENT']))
 	//if IE we access the uploaded file like this
 	$ori_name = $_FILES['userfile']['name'];
 	$file = $_FILES['userfile']['tmp_name'];
+	$thumb = 'thumb' + $ori_name;
 	
 	//if save succesfully
 	echo json_encode(array(
@@ -202,6 +147,7 @@ else
 	// if FF, Chrome, Safari we access the uploaded file like this
 	$ori_name = $_SERVER['HTTP_X_FILE_NAME'];		
 	$file = file_get_contents("php://input");
+	$thumb = 'thumb' + $ori_name;
 	
 	//if save succesfully
 	echo json_encode(array(
@@ -210,3 +156,60 @@ else
 	));
 }
 ```
+###Properties explaination
+
+url
+
+the page which will process file upload
+
+fileList
+
+The element that will contain your uploaded file, normally ul/ol
+
+progressor
+
+The element which will display the upload percentage (100%)
+
+progressBar
+
+is the progressbar
+
+maxLength
+
+is the amount of images are allowed to upload
+
+maxSize
+
+is maximum MB of an image allowed to upload (if set 2000, the maximum size will be 2MB)
+
+minHeight
+
+is the minimum height of the image. Set 0 for unlimit height
+
+minWidth
+
+is the minimum width of the image. Set 0 for unlimit width
+
+allowedType
+
+is the file extensions which are allowed to upload
+
+onLengthError
+
+is event happen when image not meet the maxLength limit
+
+onSizeError
+
+is event happen when image not meet the maxSize limit
+
+onProgress
+
+is event happens during transfering image to server
+
+onCancel
+
+is event happen after user click cancel uploading
+
+onComple
+
+is event happen when image complete transfering to server
