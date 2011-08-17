@@ -12,7 +12,7 @@ jQuery 1.3+
 
 ###Usage
 
-####Client
+####Clients
 
 ```html
 <form id="uploadform">
