@@ -76,10 +76,10 @@
 						//update progress bar to 100% in firefox
 						//update progress number to display in the view
 						progress = bar[0].style.width = 100 + "%";
-						bar.hide();
 					}
 					if(progressor.length){
-						progressor.text(progress).hide();
+						// progressor.text(progress).hide();
+						progressor.text(progress);
 					}
 					if(cancel.length){
 						cancel.hide();
@@ -92,12 +92,21 @@
 
 
 					// check if response is json object
-					response = jQuery.parseJSON(xhr.responseText);
-					if (typeof response =='object'){
+					var isJSON = true;
+					try {
+					    $.parseJSON(xhr.responseText);
+					} catch (e) {
+					    isJSON = false;
+					}
+
+					if(isJSON == true){
+						response = $.parseJSON(xhr.responseText);
 						o.onComplete.call(this, name, size, index, response);
 					}else{
-						alert(xhr.responseText);
+						response = xhr.responseText;
+						o.onComplete.call(this, name, size, index, response);
 					}
+					
 					
 				}, false);
 
