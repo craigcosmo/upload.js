@@ -15,6 +15,7 @@
 			listItem: html,
 			url : '',
 			progressor: '',
+			dropZone:'',
 			progressBar:'.progress-bar',
 			cancelButton:'.cancel-upload',
 			onSubmit:function(){},
@@ -179,6 +180,38 @@
 				traverseFiles(this.files);
 			}, false);
 			
+			// drag and drop file
+			// detect dropzone, if there is no dropzone, create a random element for the event to bind with
+			// that means the events are useless without a delegated dropzone
+			var DZ = (o.dropZone.length ? $(o.dropZone)[0] : document.createElement('section'));
+
+			DZ.addEventListener("dragleave", function (evt) {
+				var target = evt.target;
+				if (target && target === dropArea) {
+					this.className = "";
+				}
+				evt.preventDefault();
+				evt.stopPropagation();
+			}, false);
+			
+			DZ.addEventListener("dragenter", function (evt) {
+				this.className = "over";
+				evt.preventDefault();
+				evt.stopPropagation();
+			}, false);
+			
+			DZ.addEventListener("dragover", function (evt) {
+				evt.preventDefault();
+				evt.stopPropagation();
+			}, false);
+			
+			DZ.addEventListener("drop", function (evt) {
+				traverseFiles(evt.dataTransfer.files);
+				this.className = "";
+				evt.preventDefault();
+				evt.stopPropagation();
+			}, false);
+
 		});
 	}
 })(jQuery);
