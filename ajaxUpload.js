@@ -212,6 +212,7 @@
 				evt.stopPropagation();
 			}, false);
 
+
 		});
 	}
 })(jQuery);
