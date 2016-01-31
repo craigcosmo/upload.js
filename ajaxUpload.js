@@ -85,9 +85,7 @@
 					if(progressor.length) progressor.text(progress);
 
 					o.onProgress.call(this, object);
-				}
-					
-		
+				};
 				// xhr.addEventListener("load", function () {}, false);
 				xhr.onload = function(){
 					//update progress bar to 100% in firefox
@@ -100,7 +98,7 @@
 					// check if response is json object or text
 					response = sortResponse(xhr.responseText);
 					o.onComplete.call(this, object, response);
-				}
+				};
 
 				// xhr.responseType
 				// xhr.response contain the value fetched from server
@@ -212,7 +210,7 @@
 				try {$.parseJSON(response);} catch (e) {isJSON = false;}
 
 				// response = JSON.parse(xhr.responseText);
-				if(isJSON == true){ sorted = $.parseJSON(response);}
+				if(isJSON === true){ sorted = $.parseJSON(response);}
 				else{sorted = response;}
 
 				return sorted;
@@ -265,5 +263,5 @@
 
 
 		});
-	}
+	};
 })(jQuery);
