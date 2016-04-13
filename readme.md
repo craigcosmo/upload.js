@@ -4,7 +4,7 @@
 
 ###Support
 
-IE7+,FF3+,Chrome,Safari
+IE9+,FF3+,Chrome,Safari
 
 ###Requirement
 
@@ -27,103 +27,63 @@ jQuery 1.3+
 
 ```js
 
-//detecting iE
-IE='\v'=='v';
+$('#album .upload').upload({
+	url:'<?= site_url("upload/index/".$this->uri->segment(3))?>',
+	list: '#files',
+	item: item,
+	progressor: '.progressor',
+	progressBar: '.progress-bar',
+	cancelButton: '.cancel',
+	// minWidth: 550,
+	// minHeight: 330,
+	minWidth: 500,
+	minHeight: 300,
+	// minHeight: 300,
+	maxSize: 100000,
+	maxLength: 20,
+	allowedType:'jpg|png|jpeg|gif',
+	onProgress:function(object){
+		// $('#files li').eq(index).find('.progressor').text(progress);
+	},
+	onLengthError:function(){
+		$.modal("you have reached the limit of 20 photos');
+	},
+	onSubmit: function(object){
+		check();			
+	},
+	onTypeError:function(object){
+		$.modal(object.name + ' is not a correct file type');
+	},
+	onDimensionError: function(object){
+		$.modal("image dimension has to be at least 650 x 350 or better");
+	},
+	onComplete: function(object, response){
+		if(response.status=='success'){
 
-if(!IE){
-	var	listitem = 	'<li>'+
-						'<div class="progressor"></div>'+
-						'<div class="progress-bar-container">'+
-							'<div class="progress-bar">'+
-							'</div>'+
-						'</div>'+
-						'<a class="cancel"></a>'+
-					'</li>';
-				
-	$('#file-upload').ajaxUpload({
-		url:'<?= site_url("demo/ajax_upload/uploadx") ?>',
-		fileList: '#files',
-		listItem: listitem,
-		progressor: '.progressor',
-		progressBar: '.progress-bar',
-		cancelButton: '.cancel',
-		minWidth: 110,
-		minHeight: 86,
-		maxSize: 10000,
-		maxLength: 12,
-		allowedType: 'jpg|png|jpeg|gif',
-		onDimensionError: function(name, width, height){
-			alert('File <span style="color:red">'+name+'</span> dimension is too small');
-		},
-		onLengthError: function(current_length){
-			alert('Maximum upload limit is 12');
-		},
-		onSizeError: function(name){
-			alert('File <span style="color:red">'+name+'</span> size is too big. Max is 10MB');
-		},
-		onTypeError: function(name){
-			alert('File <span style="color:red">'+name+'</span> is not an image');
-		},
-		onSubmit: function(name, size, index){
-			$('li').eq(index).append('<span class="oriname" title="'+name+'">'+name+'</span>');
-		},
-		onProgress: function(name, size, index, loaded, progress){
-		
-		},
-		onCancel: function(name, size, index, loaded, progress){
-			$('li').eq(index).remove();
-		},
-		onComplete: function(name, size, index, response){
-			var i = response;
-			if(i.status=='success'){
-				$('li').eq(index).prepend('<img src="'+ i.thumb_name+'" /><br>');
-				$('li').eq(index).find('.progress-bar-container').hide();
-			}else{
-				$('li').eq(index).remove();
-				alert('upload fail');	
+			// object.append('<img src="'+response.link+'">');
+			var img = $('<span class="thumb">').css('background-image', 'url('+object.path+')');
+			$(object).append('<span class="handler c"><i class="fa fa-bars"></i></span>');
+			$(object).append(img);
+			$(object).append('<a class="del" id="'+response.image_id+'" thumb="'+response.thumb+'" style="display:none">✕</a>');
+			$(object).append('<a class="set" id="'+response.image_id+'" style="display:none">set default</a>');
+			$(object).append('<a class="no">'+(object.index + 1)+'</a>');
+			$(object).append('<textarea class="caption hide" placeholder="caption"></textarea>');
+
+
+			$(object).find('.progress-container ').hide();
+
+
+			_sort();
+
+			// this is end of upload process, all images selected were uploaded
+			if(object.index + 1 == $('#files li').length) {
+				update_order();
+				if (check() == true)  activate();
 			}
 		}
-	});
+	}
+});
 
-}
-
-if(IE){
-	var	html = 	'<li>'+
-					'<div class="progressor">0%</div>'+
-					'<div class="progress-bar-container">'+
-						'<div class="progress-bar">'+
-						'</div>'+
-					'</div>'+
-				'</li>';
-	$('#file-upload').ieAjaxUpload({
-		fileList:'#files',
-		listItem:html,
-		progressor:'.progressor',
-		progressBar:'.progress-bar',
-		allowedType:'jpg|png|jpeg|gif',
-		url:'<?= site_url("demo/ajax_upload/upload")?>',
-		maxLength:12,
-		onSubmit:function(name,index){
-			$('li').eq(index).append('<span class="oriname" title="'+name+'">'+name+'</span>');
-		},
-		onTypeError:function(name, index){
-			alert('File <span style="color:red">'+name+'</span> is not an image');
-		},
-		onLengthError:function(name, index){
-			alert('Maximum upload limit is 12');
-		},
-		onComplete:function(name,index, response){
-			var i = response;
-			if(i.status=='success'){
-				$('li').eq(index).prepend('<img src="'+i.thumb_name+'" />');
-				$('li').eq(index).find('.progress-bar-container').hide();
-			}else{
-				$('li').eq(index).remove();
-				alert('upload fail');	
-			}
-		}
-	});
-}
 
 ```
 ####Server
