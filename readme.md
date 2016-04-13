@@ -46,7 +46,7 @@ $('#album .upload').upload({
 		// $('#files li').eq(index).find('.progressor').text(progress);
 	},
 	onLengthError:function(){
-		$.modal("you have reached the limit of 20 photos');
+		$.modal('you have reached the limit of 20 photos');
 	},
 	onSubmit: function(object){
 		check();			

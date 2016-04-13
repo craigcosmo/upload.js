@@ -152,9 +152,11 @@
 			    // xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 				xhr.setRequestHeader("Content-Type", "multipart/form-data"); 
 
+				// xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 				// xhr.setRequestHeader('Content-Type', mimeType);
 				// xhr.setRequestHeader('Content-Disposition', 'attachment; filename="' + file.name + '"');
 				// xhr.setRequestHeader("X-File-Name", file.name);
+				// Access-Control-Allow-Headers
 				xhr.setRequestHeader("X-File-Name", unescape(encodeURIComponent(file.name)));
 				// fixed vietnamese character file name bug
 				xhr.setRequestHeader("X-File-Size", file.size);
