@@ -10,6 +10,16 @@
 						'<a class="cancel-upload" title="cancel"></a>'+
 					'</li>';
 
+		function extend(a, b) {
+		  for(var key in b) { 
+		    if(b.hasOwnProperty(key)) {
+		      a[key] = b[key];
+		    }
+		  }
+		  return a;
+		}
+		
+		
 
 		var defaults = {
 			list : '',
@@ -32,22 +42,39 @@
 			minHeight:0,
 			minSize:0,
 			maxSize:0
-		},
-		o = $.extend({},defaults, options);
+		};
+
+		var user_op = extend({}, options);
+		// overiding defaults option
+		var o = extend(defaults, user_op);
+
+
 		return this.each(function(){
 			
-			var input = $(this);
+			var input = this;
 			
 
 			function uploadFile(file){
-				var item = $(o.item);
-				$(o.list).append(item);
 
-				var	bar = item.find(o.progressBar);
-				var	progressor = item.find(o.progressor).text('0%');
+				var list = document.querySelector(o.list);
+
+				var i = create_dom_from_string(o.item);
+
+				list.appendChild(i);
+
+				// var item = $(i);
+
+				var bar = i.querySelector(o.progressBar);
+
+				// i.querySelector(o.progressor).innerHTML = '0%';
+				var progressor = i.querySelector(o.progressor);
+				progressor.innerHTML = '0%';
+				// var	bar = item.find(o.progressBar);
+				// var	progressor = item.find(o.progressor).text('0%');
 				var	size = parseInt(file.size/1024,10);
 				var name = file.name;
-				var	object = item;
+				// var	object = $(i);
+				var	object = i;
 
 
 
@@ -58,7 +85,10 @@
 				// this path show the temporary file on browser
 				// which can be access via image src
 				var	path = URL.createObjectURL(file);
-				var	index = item.index();
+				// var	index = $(i).index();
+				var	index = Array.prototype.slice.call(list.children).indexOf(i);
+				console.log(index);
+				// var index = document.querySelectorAll('');
 				var	response;
 				var xhr = new XMLHttpRequest();
 
@@ -81,8 +111,9 @@
 					object.loaded = loaded = parseInt(e.loaded/1024,10);
 					// total = e.total *1024;
 
-					if(bar.length) bar[0].style.width = progessFlow;
-					if(progressor.length) progressor.text(progress);
+					// if(bar.length) bar.style.width = progessFlow;
+					if(document.contains(bar)) bar.style.width = progessFlow;
+					if(document.contains(progressor)) progressor.innerHTML = progress;
 
 					o.onProgress.call(this, object);
 				};
@@ -90,8 +121,9 @@
 				xhr.onload = function(){
 					//update progress bar to 100% in firefox
 					//update progress number to display in the view
-					if(bar.length) progress = bar[0].style.width = 100 + "%";
-					if(progressor.length) progressor.text(progress);
+					// if(bar.length) progress = bar.style.width = 100 + "%";
+					if(document.contains(bar)) progress = bar.style.width = 100 + "%";
+					if(document.contains(progressor)) progressor.innerHTML = progress;
 					// loaded should be equal total by now
 					// loaded = total;
 
@@ -145,6 +177,7 @@
 
 					var type= getTrueFileType(files[i]);
 					// console.log(type);
+					var item_vol = document.querySelector(o.list).children.length;
 
 					if(o.allowedType.length && !o.allowedType.match(type)){
 						o.onTypeError.call(this, {name: files[i].name} );
@@ -152,8 +185,8 @@
 					else if(o.maxSize >0 && parseInt(files[i].size/1024) > o.maxSize){
 						o.onSizeError.call(this, {name: files[i].name});
 					}
-					else if(o.maxLength>0 && $(o.list).children().length >= o.maxLength){
-						o.onLengthError.call(this, $(o.list).children().length);
+					else if(o.maxLength>0 && item_vol >= o.maxLength){
+						o.onLengthError.call(this, item_vol);
 					}
 					else if (typeof FileReader !== "undefined"){
 
@@ -165,8 +198,8 @@
 							else if(o.minHeight>0 && height<o.minHeight){
 								o.onDimensionError.call(this, {name :file.name, width: width, height: height});
 							}
-							else if($(o.list).children().length >= o.maxLength){//needed double check items length
-								o.onLengthError.call(this, $(o.list).children().length);	
+							else if(item_vol >= o.maxLength){//needed double check items length
+								o.onLengthError.call(this, item_vol);	
 							}
 							else {
 								uploadFile(file);
@@ -180,6 +213,12 @@
 				}
 			}
 			
+			function create_dom_from_string(string){
+				var div = document.createElement('div');
+				div.innerHTML = string;
+				return div.firstChild;
+			}
+
 			function getImgSize(file, callback){
 				var reader = new FileReader();  
 				reader.onload = function(evt) {
@@ -187,7 +226,7 @@
 					image.onload = function(evt) {
 						var width = this.width;
 						var height = this.height;
-						if (callback) callback(file, width, height);
+						callback && callback(file, width, height);
 					};
 					image.src = evt.target.result; 
 				};
@@ -207,11 +246,9 @@
 			function sortResponse(response){
 				var isJSON = true;
 
-				try {$.parseJSON(response);} catch (e) {isJSON = false;}
+				try {JSON.parse(response);} catch (e) {isJSON = false;}
 
-				// response = JSON.parse(xhr.responseText);
-				if(isJSON === true){ sorted = $.parseJSON(response);}
-				else{sorted = response;}
+				var sorted = isJSON ? JSON.parse(response) : response;
 
 				return sorted;
 			}
@@ -219,12 +256,12 @@
 
 			// cancel
 			// call cancel by trigger cancel event on input
-			input[0].addEventListener('cancel', function(){
+			input.addEventListener('cancel', function(){
 				uploadFile.abort();
 				o.onCancel.call(this);
 			}, false);
 
-			input[0].addEventListener("change", function () {
+			input.addEventListener("change", function () {
 					traverseFiles(this.files);
 			}, false);
 			
@@ -232,7 +269,7 @@
 			// drag and drop file
 			// detect dropzone, if there is no dropzone, create a random element for the event to bind with
 			// that means the events are useless without a delegated dropzone
-			var DZ = (o.dropZone.length ? $(o.dropZone)[0] : document.createElement('section'));
+			var DZ = o.dropZone.length ? document.querySelector(o.dropZone) : document.createElement('section');
 
 			DZ.addEventListener("dragleave", function (evt) {
 				var target = evt.target;
