@@ -1,0 +1,242 @@
+/*upload*/
+.album {
+	width: 1000px;
+	margin: 0 auto 100px auto;
+	position: relative;
+}
+.next_btn {
+	width: 400px;
+	height: 100px;
+	margin: 0 auto;
+	display: block;
+}
+.files li {
+	list-style-type: none;
+	float: left;
+	position: relative;
+	width: 154px;
+	height:160px;
+	margin: 0 0px 8px 38px;
+}
+.files li a{
+	text-decoration: none;
+}
+.files li .thumb, .files li img{
+	height: 104px;
+	width: 154px;
+	cursor: default;
+	margin-bottom: 10px;
+	font-size: 0;
+}
+.files li .thumb {
+	display: inline-block;
+    background-position: center center;
+    background-size: cover;
+}
+/*.minidrop {
+	width: 154px;
+	height: 104px;
+	border-radius: 5px;
+	position: absolute;
+	border: 2px dashed #626262;
+    display: block;
+    font-size: 1.3rem;
+    line-height: 104px;
+    margin: auto;
+    overflow: hidden;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 4rem;
+}*/
+.minidrop {
+	width: 154px;
+	height: 104px;
+	border-radius: 5px;
+	/*position: absolute;*/
+	border: 2px dashed #626262;
+    display: block;
+    font-size: 1.3rem;
+    line-height: 104px;
+    overflow: hidden;
+    /*margin-top: 25px;*/
+    margin-left: 40px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 4rem;
+	position: relative;
+	float: left;
+}
+/*.files li:last-child{
+	margin-right: 40px;
+}*/
+
+.files li .del {
+	position: absolute;
+	color:#fff;
+	/*width: 30px;*/
+	/*height: 26px;*/
+	text-align: center;
+	padding: 0px 5px 0px 5px;
+	top:5px;
+	/*top: 32px;*/
+	right: 3px;
+	font-size: 2.8rem;
+	cursor: pointer;
+	text-shadow: 1px 1px 2px rgba(0,0,0,1);
+	border-radius:50%;
+	border: 1px solid transparent;
+	line-height: 25px;
+	transition: all 0.1s ease;
+
+	/*vertically align i element*/
+}
+.files li .del:hover {
+	border-radius:50%;
+	background: #C0382B;
+	text-shadow: none;
+	color: #fff;
+	box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+	transition: all 0.1s ease;
+}
+.files li .del i {
+
+	text-shadow:1px 1px 1px rgba(0, 0, 0, 1); 
+
+}
+.files li .set {
+	border: solid 1px #aaa;
+	color: #aaa;
+	border-radius: 4px;
+	padding: 3px 6px 3px 6px;
+	cursor: pointer;
+	position: absolute;
+	top: 5px;
+	/*top: 35px;*/
+	left: 5px;
+	color: #333;
+	/*text-shadow: 1px 1px 1px rgba(0,0,0,1);*/
+	border: solid 1px #fff;
+	/*box-shadow: 1px 1px 2px rgba(0,0,0,0.5);*/
+	font-weight: 300;
+	transition: all 0.1s ease;
+	background: rgba(255,255,255,0.8);
+}
+.files li .set:hover {
+	border-color: #33cc77;
+	color: #33cc77;
+	transition: all 0.1s ease;
+}
+.files li .handler {
+	color: #aaa;
+	cursor: grab;
+	display: inline-block;
+	width: 100%;
+	padding: 5px;
+	/*font-size: 1.6rem*/	
+	position: absolute;
+	top: -25px;
+}
+.files li .handler:active {
+	cursor: grabbing;
+}
+.files li .red {
+	color: #33cc77
+}
+.files li .del {
+	color: #fff
+}
+.files li .no {
+	position: absolute;
+	left: 0px;
+	top: -22px;
+	bottom:20px;
+	/*z-index: 99999;*/
+	z-index: 9;
+	color: #aaa;
+	/*display: inline-block;*/
+	/*text-align: right;*/
+}
+.upload-wrapper {
+	/*display: block;
+	float: left;
+	font-size: 11px;
+	overflow: hidden;
+	position: relative;
+	margin:34px 0 0 100px;*/
+
+	display: block;
+	font-size: 20px;
+	line-height: 300px;
+	overflow: hidden;
+	position: relative;
+	margin: auto;
+	color: #626262;
+}
+.upload{
+	cursor: pointer;
+	font-size: 460px;
+	margin: 0;
+	opacity: 0;
+	padding: 0;
+	position: absolute; 
+	right: 0;
+	top: 0;
+	/*z-index: 1;*/
+	/*height 100% for safari. if not the height of upload input only 21px, very much to click on*/
+	height: 100%;
+}
+.progress-container {
+	width: 100%;
+	height: 104px;
+	text-align: center;
+	position: relative;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	
+}
+.progress-container:before {
+	content: "";
+	display: inline-block;
+	vertical-align: middle;
+	/*height: 100%;*/
+}
+.progressor {
+	position: absolute;
+	margin: auto;
+	right:0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 50%;
+	height: 10%;
+	font-size: 2rem;
+	color: #999;
+	font-weight: 300
+}
+.progress-bar-container {
+	/*border: 1px solid #626262;*/
+	border-radius: 3px;
+	width: 90%;
+	position: absolute;
+	bottom: 10%;
+	margin: auto;
+	right:0;
+	left: 0;
+	background: #ddd
+
+}
+.progress-bar {
+	border-radius: 3px;
+	background: #63e46a;
+	height: 3px;
+	width: 1px
+}
+#drop-area {
+	border: 2px dashed #626262;
+	height: 300px;
+	margin:0 auto;
+	padding: 10px;
+	text-align: center;
+	width: 400px;
+	border-radius: 5px
+}
