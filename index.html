@@ -52,7 +52,7 @@
 					// object.append('<img src="'+response.link+'">');
 					var img = $('<span class="thumb">').css('background-image', 'url('+object.path+')');
 					$(object).append(img);
-					$(object).append('<a class="del" id="'+response.image_id+'" >✕</a>');
+					$(object).append('<a class="del hide" id="'+response.image_id+'" >✕</a>');
 					$(object).append('<a class="no">'+(object.index + 1)+'</a>');
 
 					$(object).find('.progress-container').hide();
