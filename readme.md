@@ -1,5 +1,8 @@
 #HTML5 AJAX upload
 
+### Demo
+
+`http://craigcosmo.github.io/upload.js/`
 
 ### Browser Support
 
