@@ -1,18 +1,17 @@
 #HTML5 AJAX upload
 
-## Document
 
-###Support
+### Browser Support
 
 IE9+,FF3+,Chrome,Safari
 
-###Requirement
+### Dependencies
 
-jQuery 1.3+
+jQuery 2
 
-###Usage
+### Usage
 
-####Clients
+HTML
 
 ```html
 <form id="uploadform">
@@ -25,20 +24,19 @@ jQuery 1.3+
 <ul id="files"></ul>
 ```
 
+JS
+
 ```js
 
 $('#album .upload').upload({
-	url:'<?= site_url("upload/index/".$this->uri->segment(3))?>',
+	url:'upload_url',
 	list: '#files',
 	item: item,
 	progressor: '.progressor',
 	progressBar: '.progress-bar',
 	cancelButton: '.cancel',
-	// minWidth: 550,
-	// minHeight: 330,
 	minWidth: 500,
 	minHeight: 300,
-	// minHeight: 300,
 	maxSize: 100000,
 	maxLength: 20,
 	allowedType:'jpg|png|jpeg|gif',
@@ -46,77 +44,44 @@ $('#album .upload').upload({
 		// $('#files li').eq(index).find('.progressor').text(progress);
 	},
 	onLengthError:function(){
-		$.modal('you have reached the limit of 20 photos');
+		alert('you have reached the limit of 20 photos');
 	},
 	onSubmit: function(object){
-		check();			
+			
 	},
 	onTypeError:function(object){
-		$.modal(object.name + ' is not a correct file type');
+		alert(object.name + ' is not a correct file type');
 	},
 	onDimensionError: function(object){
-		$.modal("image dimension has to be at least 650 x 350 or better");
+		alert("image dimension has to be at least 650 x 350 or better");
 	},
 	onComplete: function(object, response){
 		if(response.status=='success'){
-
-			// object.append('<img src="'+response.link+'">');
-			var img = $('<span class="thumb">').css('background-image', 'url('+object.path+')');
-			$(object).append('<span class="handler c"><i class="fa fa-bars"></i></span>');
-			$(object).append(img);
-			$(object).append('<a class="del" id="'+response.image_id+'" thumb="'+response.thumb+'" style="display:none">✕</a>');
-			$(object).append('<a class="set" id="'+response.image_id+'" style="display:none">set default</a>');
-			$(object).append('<a class="no">'+(object.index + 1)+'</a>');
-			$(object).append('<textarea class="caption hide" placeholder="caption"></textarea>');
-
-
-			$(object).find('.progress-container ').hide();
-
-
-			_sort();
-
-			// this is end of upload process, all images selected were uploaded
-			if(object.index + 1 == $('#files li').length) {
-				update_order();
-				if (check() == true)  activate();
-			}
+			// upload success, do anything you want here.
+			// object is the actual list item (photo) you can grab and do any sort of DOM manipulate.
 		}
 	}
 });
 
 
 ```
-####Server
+
+Server
+
 ```php
-//detect browser
-if(preg_match('/(MSIE|opera)/i',$_SERVER['HTTP_USER_AGENT']))
-{
-	//if IE we access the uploaded file like this
-	$ori_name = $_FILES['userfile']['name'];
-	$file = $_FILES['userfile']['tmp_name'];
-	$thumb = 'thumb' + $ori_name;
+
+	$file_name = $_SERVER['HTTP_X_FILE_NAME'];		
+	$file_content = file_get_contents("php://input");
+	$thumb_name = $file_name+ '_thumb.jpg';
 	
-	//if save succesfully
+	//if saved to server succesfully
 	echo json_encode(array(
 		'status'=>'success',
-		'thumb'=>$ori_name,
+		'thumb'=>$,
 	));
-}
-else
-{
-	// if FF, Chrome, Safari we access the uploaded file like this
-	$ori_name = $_SERVER['HTTP_X_FILE_NAME'];		
-	$file = file_get_contents("php://input");
-	$thumb = 'thumb' + $ori_name;
-	
-	//if save succesfully
-	echo json_encode(array(
-		'status'=>'success',
-		'thumb'=>$ori_name,
-	));
-}
 ```
-###Properties explaination
+
+### Properties explaination
 
 url
 
