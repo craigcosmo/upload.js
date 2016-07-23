@@ -19,7 +19,7 @@
 						'</div>'+
 					'</li>';
 
-		$('#album .upload').upload({
+		$('#upload').upload({
 			url:'http://ezyhunt.com/public_upload',
 			list: '#files',
 			item: item,
@@ -81,7 +81,7 @@
 	<div id="drop-area">
 		<div class="upload-wrapper">
 			+ Choose Photos or Drop Photos Here
-			<input class="upload" type="file" name="userfile" multiple="true" />
+			<input id="upload" class="upload" type="file" name="userfile" multiple="true" />
 		</div>
 	</div>
 
