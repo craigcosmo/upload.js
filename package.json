@@ -1,0 +1,19 @@
+{
+  "name": "re-up",
+  "version": "1.0.0",
+  "description": "upload files or photos with react",
+  "main": "upload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craigcosmo/ajax-upload.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/craigcosmo/ajax-upload/issues"
+  },
+  "homepage": "https://github.com/craigcosmo/ajax-upload#readme"
+}
