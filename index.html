@@ -8,9 +8,7 @@
 	<script src="upload.js"></script>
 	<script>
 	$(function(){
-		// var url = 'http://ezyhunt.com/public_upload';
-		var url = 'http://upload.mamaohla/public_upload';
-		
+
 		var	item = 	'<li>'+
 						'<div class="progress-container">'+
 							'<div class="progressor"></div>'+
@@ -22,7 +20,7 @@
 					'</li>';
 
 		$('#upload').upload({
-			url: url,
+			url:'http://ezyhunt.com/public_upload',
 			list: '#files',
 			item: item,
 			progressor: '.progressor',

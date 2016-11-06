@@ -1,8 +1,5 @@
 #HTML5 AJAX upload
 
-### Demo
-
-`http://craigcosmo.github.io/upload.js/`
 
 ### Browser Support
 
@@ -20,7 +17,7 @@ HTML
 <form id="uploadform">
 	<div id="file_browse_wrapper" class="btn">
 		Upload photo
-		<input id="upload" type="file" name="userfile" multiple="true" />
+		<input id="file-upload" type="file" name="userfile" multiple="true" />
 	</div>
 </form>
 <br />
@@ -31,7 +28,7 @@ JS
 
 ```js
 
-$('#upload').upload({
+$('#album .upload').upload({
 	url:'upload_url',
 	list: '#files',
 	item: item,
