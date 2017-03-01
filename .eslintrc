@@ -1,0 +1,105 @@
+{
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true,
+			"modules": true
+		}
+	},
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true,
+		"jquery":true,
+		"jasmine":true,
+		"mocha":true,
+		"amd":true
+	},
+	"settings":{
+		"import/resolver": {
+			"babel-module": {}
+		}
+	},
+	"plugins": [
+		"react",
+		"json",
+		"import"
+	],
+	"globals": {
+	},
+	"rules": {
+		"quote-props": ["off", "as-needed"],
+		"no-unused-vars": ["off"],
+		"no-mixed-spaces-and-tabs": "warn",
+		"jsx-quotes": ["warn", "prefer-double"],
+		"quotes": ["warn", "single"],
+		"comma-dangle": ["warn", "only-multiline"],
+		"no-unneeded-ternary": "off",
+		"semi": ["warn", "never"],
+		"no-underscore-dangle": "warn",
+		"no-redeclare": "error",
+		"no-cond-assign": "error",
+		"no-constant-condition" :"error",
+		"no-control-regex" : "error",
+		"no-dupe-args" : "error",
+		"no-dupe-keys" : "error",
+		"no-duplicate-case" : "error",
+		"no-extra-semi" : "error",
+		"no-func-assign" : "error",
+		"no-invalid-regexp" : "error",
+		"no-regex-spaces" : "error",
+		"no-sparse-arrays" : "error",
+		"no-unreachable" : "error",
+		"no-empty-character-class":"error",
+		"no-extra-boolean-cast": "error",
+		"no-unsafe-negation": "error",
+		"no-dupe-class-members":"error",
+		"use-isnan": "error",
+		"block-scoped-var": "error",
+		"valid-typeof": ["error", { "requireStringLiterals": true }],
+		"no-empty":"off",
+		"no-undef": "error",
+		"no-spaced-func": "error",
+		"no-whitespace-before-property": "error",
+		"valid-jsdoc": "off",
+		"constructor-super": "error",
+		"no-const-assign": "error",
+		"no-this-before-super": "error",
+		"no-useless-computed-key": "error",
+		"no-var": "error",
+		"max-depth": ["error", 3],
+		"no-obj-calls": "error",
+		"max-nested-callbacks": ["error", 3],
+		"max-params": ["error", 4],
+		"new-parens": "error",
+		"no-nested-ternary": "error",
+		"no-template-curly-in-string": "error",
+
+
+
+		"react/jsx-indent": ["warn", "tab"],
+		"react/jsx-indent-props": ["warn", "tab"],
+		"react/jsx-uses-react": "warn",
+		"react/jsx-uses-vars": "warn",
+		"react/forbid-component-props": "off",
+		"react/no-deprecated":"warn",
+		"react/no-did-mount-set-state": ["off", "disallow-in-func"],
+		"react/no-did-update-set-state": ["error", "disallow-in-func"],
+		"react/no-direct-mutation-state":"warn",
+		"react/no-unescaped-entities":"off",
+		"react/no-unused-prop-types": "warn",
+		"react/prefer-es6-class":"error",
+		"react/prop-types":"off",
+		"react/jsx-key":"warn",
+		"react/jsx-no-comment-textnodes":"error",
+		"react/jsx-no-duplicate-props": "error",
+		"react/require-render-return":"warn",
+		"react/style-prop-object":"warn",
+		"react/jsx-no-undef":"error",
+		"react/jsx-tag-spacing":["error",{"beforeSelfClosing":"allow"}],
+		
+
+		"import/no-unresolved": "error"
+	}
+}
+

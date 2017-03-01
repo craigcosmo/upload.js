@@ -9,15 +9,15 @@
 	<script>
 	$(function(){
 
-		var	item = 	'<li>'+
-						'<div class="progress-container">'+
-							'<div class="progressor"></div>'+
-							'<div class="progress-bar-container">'+
-								'<div class="progress-bar">'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-					'</li>';
+	let	item = `<li>
+					<div class="progress-container">
+						<div class="progressor"></div>
+						<div class="progress-bar-container">
+							<div class="progress-bar">
+							</div>
+						</div>
+					</div>
+				</li>`
 
 		$('#upload').upload({
 			url:'http://upload.mamaohla.com/public_upload',
@@ -32,30 +32,30 @@
 			maxLength: 20,
 			allowedType:'jpg|png|jpeg|gif',
 			onProgress:function(object){
-				// $('#files li').eq(index).find('.progressor').text(progress);
+				// $('#files li').eq(index).find('.progressor').text(progress)
 			},
 			onLengthError:function(){
-				$('#notification')[0].innerHTML = 'you have reached the limit of 20 photos';
+				$('#notification')[0].innerHTML = 'you have reached the limit of 20 photos'
 			},
 			onSubmit: function(object){
 
 			},
 			onTypeError:function(object){
-				$('#notification')[0].innerHTML = ' is not a correct file type';
+				$('#notification')[0].innerHTML = ' is not a correct file type'
 			},
 			onDimensionError: function(object){
-				$('#notification')[0].innerHTML = "image dimension has to be at least 650 x 350 or better";
+				$('#notification')[0].innerHTML = 'image dimension has to be at least 650 x 350 or better'
 			},
 			onComplete: function(object, response){
 				if(response.status=='success'){
 
-					// object.append('<img src="'+response.link+'">');
-					var img = $('<span class="thumb">').css('background-image', 'url('+object.path+')');
-					$(object).append(img);
-					$(object).append('<a class="del hide" id="'+response.image_id+'" >✕</a>');
-					$(object).append('<a class="no">'+(object.index + 1)+'</a>');
+					// object.append('<img src="'+response.link+'">')
+					let img = $('<span class="thumb">').css('background-image', 'url('+object.path+')')
+					$(object).append(img)
+					$(object).append('<a class="del hide" id="'+response.image_id+'" >✕</a>')
+					$(object).append('<a class="no">'+(object.index + 1)+'</a>')
 
-					$(object).find('.progress-container').hide();
+					$(object).find('.progress-container').hide()
 
 					// this is end of upload process, all images selected were uploaded
 					if(object.index + 1 == $('#files li').length) {
@@ -63,9 +63,9 @@
 					}
 				}
 			}
-		});
+		})
 
-	});
+	})
 
 	</script>
 </head>
