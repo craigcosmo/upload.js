@@ -63,51 +63,8 @@
 		document.querySelector('#upload').onchange = function() {
 			up.traverseFile(this.files)
 		}
-
-
-		// document.querySelector('#upload').ondragleave = function (evt) {
-		// 	let target = evt.target
-		// 	evt.preventDefault()
-		// 	evt.stopPropagation()
-		// }
-		
-		// document.querySelector('#upload').ondragenter = function (evt) {
-		// 	this.className = 'over'
-		// 	evt.preventDefault()
-		// 	evt.stopPropagation()
-		// }
-		
-		// document.querySelector('#upload').ondragover = function (evt) {
-		// 	evt.preventDefault()
-		// 	evt.stopPropagation()
-		// }
-		let DZ = document.createElement('section')
-
-		// DZ.addEventListener('dragleave', function (evt) {
-		// 	let target = evt.target
-		// 	evt.preventDefault()
-		// 	evt.stopPropagation()
-		// }, false)
-		
-		// DZ.addEventListener('dragenter', function (evt) {
-		// 	this.className = 'over'
-		// 	evt.preventDefault()
-		// 	evt.stopPropagation()
-		// }, false)
-		
-		// DZ.addEventListener('dragover', function (evt) {
-		// 	evt.preventDefault()
-		// 	evt.stopPropagation()
-		// }, false)
-		
-		DZ.addEventListener('drop', function (evt) {
-			traverseFiles(evt.dataTransfer.files)
-			this.className = ''
-			evt.preventDefault()
-			evt.stopPropagation()
-		}, false)
-		
-		// document.querySelector('#upload').ondrop = function (evt) {
+	
+		// document.createElement('section').ondrop = function (evt) {
 		// 	up.traverseFile(evt.dataTransfer.files)
 		// 	this.className = ''
 		// 	evt.preventDefault()
