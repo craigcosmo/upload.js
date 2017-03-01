@@ -1,21 +1,26 @@
 #HTML5 AJAX upload
 
+This plugin allows upload multiple files.
 
-### Browser Support
+## Browser Support
 
 IE9+,FF3+,Chrome,Safari
 
-### Dependencies
+## Dependencies
 
 jQuery 2
 
-### Usage
+## Demo
 
-HTML
+http://craigcosmo.github.io/upload.js/
+
+## Usage
+
+**HTML**
 
 ```html
 <form id="uploadform">
-	<div id="file_browse_wrapper" class="btn">
+	<div id="file-browse-wrapper" class="btn">
 		Upload photo
 		<input id="file-upload" type="file" name="userfile" multiple="true" />
 	</div>
@@ -24,7 +29,7 @@ HTML
 <ul id="files"></ul>
 ```
 
-JS
+**JS**
 
 ```js
 
@@ -66,7 +71,7 @@ $('#album .upload').upload({
 
 ```
 
-Server
+**Server**
 
 ```php
 
@@ -81,7 +86,7 @@ Server
 	));
 ```
 
-### Properties explaination
+## Properties explaination
 
 url
 

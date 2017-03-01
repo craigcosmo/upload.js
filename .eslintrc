@@ -9,23 +9,16 @@
 	"env": {
 		"browser": true,
 		"es6": true,
-		"node": true,
 		"jquery":true,
 		"jasmine":true,
 		"mocha":true,
-		"amd":true
-	},
-	"settings":{
-		"import/resolver": {
-			"babel-module": {}
-		}
+		"node":true
 	},
 	"plugins": [
-		"react",
 		"json",
-		"import"
 	],
 	"globals": {
+		"new": true
 	},
 	"rules": {
 		"quote-props": ["off", "as-needed"],
@@ -73,33 +66,11 @@
 		"max-params": ["error", 4],
 		"new-parens": "error",
 		"no-nested-ternary": "error",
-		"no-template-curly-in-string": "error",
+		"no-template-curly-in-string": "error"
 
 
 
-		"react/jsx-indent": ["warn", "tab"],
-		"react/jsx-indent-props": ["warn", "tab"],
-		"react/jsx-uses-react": "warn",
-		"react/jsx-uses-vars": "warn",
-		"react/forbid-component-props": "off",
-		"react/no-deprecated":"warn",
-		"react/no-did-mount-set-state": ["off", "disallow-in-func"],
-		"react/no-did-update-set-state": ["error", "disallow-in-func"],
-		"react/no-direct-mutation-state":"warn",
-		"react/no-unescaped-entities":"off",
-		"react/no-unused-prop-types": "warn",
-		"react/prefer-es6-class":"error",
-		"react/prop-types":"off",
-		"react/jsx-key":"warn",
-		"react/jsx-no-comment-textnodes":"error",
-		"react/jsx-no-duplicate-props": "error",
-		"react/require-render-return":"warn",
-		"react/style-prop-object":"warn",
-		"react/jsx-no-undef":"error",
-		"react/jsx-tag-spacing":["error",{"beforeSelfClosing":"allow"}],
-		
 
-		"import/no-unresolved": "error"
 	}
 }
 

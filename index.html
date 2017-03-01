@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HTML5 Multiple File Upload With Progress And Cancelation</title>
-	<link rel="stylesheet" href="base.css">
+	<title>Multiple File Upload With Progress, Pausability and Cancelation</title>
 	<link rel="stylesheet" href="upload.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="upload.js"></script>
 	<script>
-	$(function(){
+	window.onload = function(){
 
-	let	item = `<li>
-					<div class="progress-container">
-						<div class="progressor"></div>
-						<div class="progress-bar-container">
-							<div class="progress-bar">
+		let	template = `<li>
+							<div class="progress-container">
+								<div class="progressor"></div>
+								<div class="progress-bar-container">
+									<div class="progress-bar">
+									</div>
+								</div>
+								<div class="cancel">cancel</div>
 							</div>
-						</div>
-					</div>
-				</li>`
+						</li>`
 
-		$('#upload').upload({
+		let up = new Upload({
 			url:'http://upload.mamaohla.com/public_upload',
 			list: '#files',
-			item: item,
+			item: template,
 			progressor: '.progressor',
 			progressBar: '.progress-bar',
-			cancelButton: '.cancel',
 			minWidth: 500,
 			minHeight: 300,
 			maxSize: 100000,
 			maxLength: 20,
 			allowedType:'jpg|png|jpeg|gif',
 			onProgress:function(object){
-				// $('#files li').eq(index).find('.progressor').text(progress)
+			},
+			onSubmit: function(object){
+				$(object).find('.cancel').on('click',function(){
+					up.cancel(object)
+				})
 			},
 			onLengthError:function(){
 				$('#notification')[0].innerHTML = 'you have reached the limit of 20 photos'
-			},
-			onSubmit: function(object){
-
 			},
 			onTypeError:function(object){
 				$('#notification')[0].innerHTML = ' is not a correct file type'
@@ -48,33 +48,79 @@
 			},
 			onComplete: function(object, response){
 				if(response.status=='success'){
-
-					// object.append('<img src="'+response.link+'">')
 					let img = $('<span class="thumb">').css('background-image', 'url('+object.path+')')
+					let cancelBtn = $('<a class="del hide" id="'+response.image_id+'" >✕</a>')
 					$(object).append(img)
-					$(object).append('<a class="del hide" id="'+response.image_id+'" >✕</a>')
-					$(object).append('<a class="no">'+(object.index + 1)+'</a>')
-
+					$(object).append(cancelBtn)
 					$(object).find('.progress-container').hide()
-
-					// this is end of upload process, all images selected were uploaded
-					if(object.index + 1 == $('#files li').length) {
-						//  all file finish upload
-					}
 				}
+			},
+			onQueueComplete: function(object){
+				console.log('all completed')
 			}
 		})
 
-	})
+		document.querySelector('#upload').onchange = function() {
+			up.traverseFile(this.files)
+		}
 
+
+		// document.querySelector('#upload').ondragleave = function (evt) {
+		// 	let target = evt.target
+		// 	evt.preventDefault()
+		// 	evt.stopPropagation()
+		// }
+		
+		// document.querySelector('#upload').ondragenter = function (evt) {
+		// 	this.className = 'over'
+		// 	evt.preventDefault()
+		// 	evt.stopPropagation()
+		// }
+		
+		// document.querySelector('#upload').ondragover = function (evt) {
+		// 	evt.preventDefault()
+		// 	evt.stopPropagation()
+		// }
+		let DZ = document.createElement('section')
+
+		// DZ.addEventListener('dragleave', function (evt) {
+		// 	let target = evt.target
+		// 	evt.preventDefault()
+		// 	evt.stopPropagation()
+		// }, false)
+		
+		// DZ.addEventListener('dragenter', function (evt) {
+		// 	this.className = 'over'
+		// 	evt.preventDefault()
+		// 	evt.stopPropagation()
+		// }, false)
+		
+		// DZ.addEventListener('dragover', function (evt) {
+		// 	evt.preventDefault()
+		// 	evt.stopPropagation()
+		// }, false)
+		
+		DZ.addEventListener('drop', function (evt) {
+			traverseFiles(evt.dataTransfer.files)
+			this.className = ''
+			evt.preventDefault()
+			evt.stopPropagation()
+		}, false)
+		
+		// document.querySelector('#upload').ondrop = function (evt) {
+		// 	up.traverseFile(evt.dataTransfer.files)
+		// 	this.className = ''
+		// 	evt.preventDefault()
+		// 	evt.stopPropagation()
+		// }
+
+	}
 	</script>
 </head>
 <body>
 <div id="notification"></div>
 <div class="album" id="album">
-	<ul class="files sortable grid" id="files">
-
-	</ul>
+	<ul class="files sortable grid" id="files"></ul>
 
 	<div class="clearfix"></div>
 

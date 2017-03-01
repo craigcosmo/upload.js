@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 Multiple File Upload With Progress And Cancelation</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="upload.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="upload.js"></script>
+	<script>
+	$(function(){
+
+	let	item = `<li>
+					<div class="progress-container">
+						<div class="progressor"></div>
+						<div class="progress-bar-container">
+							<div class="progress-bar">
+							</div>
+						</div>
+					</div>
+				</li>`
+
+		$('#upload').upload({
+			url:'http://upload.mamaohla.com/public_upload',
+			list: '#files',
+			item: item,
+			progressor: '.progressor',
+			progressBar: '.progress-bar',
+			cancelButton: '.cancel',
+			minWidth: 500,
+			minHeight: 300,
+			maxSize: 100000,
+			maxLength: 20,
+			allowedType:'jpg|png|jpeg|gif',
+			onProgress:function(object){
+				// $('#files li').eq(index).find('.progressor').text(progress)
+			},
+			onLengthError:function(){
+				$('#notification')[0].innerHTML = 'you have reached the limit of 20 photos'
+			},
+			onSubmit: function(object){
+
+			},
+			onTypeError:function(object){
+				$('#notification')[0].innerHTML = ' is not a correct file type'
+			},
+			onDimensionError: function(object){
+				$('#notification')[0].innerHTML = 'image dimension has to be at least 650 x 350 or better'
+			},
+			onComplete: function(object, response){
+				if(response.status=='success'){
+
+					// object.append('<img src="'+response.link+'">')
+					let img = $('<span class="thumb">').css('background-image', 'url('+object.path+')')
+					$(object).append(img)
+					$(object).append('<a class="del hide" id="'+response.image_id+'" >✕</a>')
+					$(object).append('<a class="no">'+(object.index + 1)+'</a>')
+
+					$(object).find('.progress-container').hide()
+
+					// this is end of upload process, all images selected were uploaded
+					if(object.index + 1 == $('#files li').length) {
+						//  all file finish upload
+					}
+				}
+			}
+		})
+
+	})
+
+	</script>
+</head>
+<body>
+<div id="notification"></div>
+<div class="album" id="album">
+	<ul class="files sortable grid" id="files">
+
+	</ul>
+
+	<div class="clearfix"></div>
+
+	<div id="drop-area">
+		<div class="upload-wrapper">
+			+ Choose Photos or Drop Photos Here
+			<input id="upload" class="upload" type="file" name="userfile" multiple="true" />
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
