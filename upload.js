@@ -38,7 +38,8 @@ class Upload{
 			minWidth:0,
 			minHeight:0,
 			minSize:0,
-			maxSize:0
+			maxSize:0,
+			formData:true
 		}
 
 		this.option = Object.assign(this.defaults, options)
@@ -110,14 +111,22 @@ class Upload{
 
 
 		xhr.open('post', this.option.url, true)
-		xhr.setRequestHeader('Content-Type', 'multipart/form-data') 
-		// fix unicode character file name bug
-		xhr.setRequestHeader('X-File-Name', unescape(encodeURIComponent(file.name))) 
-		xhr.setRequestHeader('X-File-Size', file.size)
-		xhr.setRequestHeader('X-File-Type', file.type)
+
+		if (this.option.formData === false) {
+			xhr.setRequestHeader('Content-Type', 'multipart/form-data') 
+			// fix unicode character file name bug
+			xhr.setRequestHeader('X-File-Name', unescape(encodeURIComponent(file.name))) 
+			xhr.setRequestHeader('X-File-Size', file.size)
+			xhr.setRequestHeader('X-File-Type', file.type)
+			xhr.send(file)
+		}else{
+			let FD  = new FormData()
+			xhr.send(FD)
+		}
+		
 
 
-		xhr.send(file)
+		
 
 		return xhr
 		
