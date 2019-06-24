@@ -20,7 +20,7 @@
 						</li>`
 
 		let up = new Upload({
-			url:'http://upload.mamaohla.com/public_upload',
+			url:'http://vegas.framltd.se/api/media',
 			list: '#files',
 			item: template,
 			progressor: '.progressor',
@@ -30,6 +30,7 @@
 			maxSize: 100000,
 			maxLength: 20,
 			allowedType:'jpg|png|jpeg|gif',
+			form:document.getElementById('uploadform'),
 			onProgress:function(object){
 			},
 			onSubmit: function(object){
@@ -76,19 +77,21 @@
 </head>
 <body>
 <div id="notification"></div>
-<div class="album" id="album">
-	<ul class="files sortable grid" id="files"></ul>
+<form id="uploadform">
+	<div class="album" id="album">
+		<ul class="files sortable grid" id="files"></ul>
 
-	<div class="clearfix"></div>
+		<div class="clearfix"></div>
 
-	<div id="drop-area">
-		<div class="upload-wrapper">
-			+ Choose Photos or Drop Photos Here
-			<input id="upload" class="upload" type="file" name="userfile" multiple="true" />
+		<div id="drop-area">
+			<div class="upload-wrapper">
+				+ Choose Photos or Drop Photos Here
+				<input id="upload" class="upload" type="file" name="file" multiple="true" />
+			</div>
 		</div>
-	</div>
 
-</div>
+	</div>
+</form>
 
 </body>
 </html>

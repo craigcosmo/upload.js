@@ -39,7 +39,8 @@ class Upload{
 			minHeight:0,
 			minSize:0,
 			maxSize:0,
-			formData:true
+			formData:true,
+			form: document.createElement('form')
 		}
 
 		this.option = Object.assign(this.defaults, options)
@@ -114,13 +115,15 @@ class Upload{
 
 		if (this.option.formData === false) {
 			xhr.setRequestHeader('Content-Type', 'multipart/form-data') 
+			// xhr.setRequestHeader('Content-Type', 'multipart/form-data') 
 			// fix unicode character file name bug
 			xhr.setRequestHeader('X-File-Name', unescape(encodeURIComponent(file.name))) 
 			xhr.setRequestHeader('X-File-Size', file.size)
 			xhr.setRequestHeader('X-File-Type', file.type)
 			xhr.send(file)
 		}else{
-			let FD  = new FormData()
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+			let FD  = new FormData(this.option.form)
 			xhr.send(FD)
 		}
 		
