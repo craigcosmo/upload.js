@@ -3,96 +3,42 @@
 <head>
 	<title>Multiple File Upload With Progress, Pausability and Cancelation</title>
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
-	<link rel="stylesheet" href="upload.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="upload.js"></script>
-	<script>
-	window.onload = function(){
-
-		let	template = `<li>
-							<div class="progress-container">
-								<div class="progressor"></div>
-								<div class="progress-bar-container">
-									<div class="progress-bar">
-									</div>
-								</div>
-								<div class="cancel">cancel</div>
-							</div>
-						</li>`
-
-		let up = new Upload({
-			url:'https://vegas.framltd.se/api/media',
-			list: '#files',
-			item: template,
-			progressor: '.progressor',
-			progressBar: '.progress-bar',
-			minWidth: 500,
-			minHeight: 300,
-			maxSize: 100000,
-			maxLength: 20,
-			allowedType:'jpg|png|jpeg|gif',
-			form:document.getElementById('uploadform'),
-			onProgress:function(object){
-			},
-			onSubmit: function(object){
-				$(object).find('.cancel').on('click',function(){
-					up.cancel(object)
-				})
-			},
-			onLengthError:function(){
-				$('#notification')[0].innerHTML = 'you have reached the limit of 20 photos'
-			},
-			onTypeError:function(object){
-				$('#notification')[0].innerHTML = ' is not a correct file type'
-			},
-			onDimensionError: function(object){
-				$('#notification')[0].innerHTML = 'image dimension has to be at least 650 x 350 or better'
-			},
-			onComplete: function(object, response){
-				if(response.status=='success'){
-					let img = $('<span class="thumb">').css('background-image', 'url('+object.path+')')
-					let cancelBtn = $('<a class="del hide" id="'+response.image_id+'" >✕</a>')
-					$(object).append(img)
-					$(object).append(cancelBtn)
-					$(object).find('.progress-container').hide()
-				}
-			},
-			onQueueComplete: function(object){
-				console.log('all completed')
-			}
-		})
-
-		document.querySelector('#upload').onchange = function() {
-			up.traverseFile(this.files)
-		}
 	
-		// document.createElement('section').ondrop = function (evt) {
-		// 	up.traverseFile(evt.dataTransfer.files)
-		// 	this.className = ''
-		// 	evt.preventDefault()
-		// 	evt.stopPropagation()
-		// }
-
-	}
-	</script>
 </head>
 <body>
-<div id="notification"></div>
-<form id="uploadform">
-	<div class="album" id="album">
-		<ul class="files sortable grid" id="files"></ul>
-
-		<div class="clearfix"></div>
-
-		<div id="drop-area">
-			<div class="upload-wrapper">
-				+ Choose Photos or Drop Photos Here
-				<input id="upload" class="upload" type="file" name="file" multiple="true" />
-			</div>
-		</div>
-
-	</div>
-</form>
-
+	<form method="post" enctype="multipart/form-data">
+		<input type="file" name="file" multiple />
+		<input type="submit" value="Upload File" name="submit" />
+	</form>
 </body>
+<script>
+	const form = document.querySelector('form')
+	let url = 'https://vegas.framltd.se/api/media'
+	form.addEventListener('submit', e => {
+	  e.preventDefault()
+
+	  const files = document.querySelector('[type=file]').files
+	  const formData = new FormData(form)
+
+	  // for (let i = 0; i < files.length; i++) {
+	  //   let file = files[i]
+
+	  //   formData.append('files[]', file)
+	  // }
+	  try{
+		fetch(url, {
+		  method: 'POST',
+		  body: formData,
+		  headers: {
+			'Content-Type':'application/x-www-form-urlencoded'
+		  }
+		}).then(response => {
+		  console.log(response)
+		})
+	  }catch(error){
+		console.log(error)
+	  }
+	  
+	})
+</script>
 </html>
