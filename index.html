@@ -17,8 +17,9 @@
 	form.addEventListener('submit', e => {
 	  e.preventDefault()
 
-	  const files = document.querySelector('[type=file]').files
-	  const formData = new FormData(form)
+	  const files = document.querySelector('[type=file]').files[0]
+	  let formData = new FormData()
+	  		formData.append('file',files)
 
 	  // for (let i = 0; i < files.length; i++) {
 	  //   let file = files[i]
@@ -27,11 +28,11 @@
 	  // }
 	  try{
 		fetch(url, {
-		  method: 'POST',
-		  body: formData,
-		  headers: {
-			'Content-Type':'application/x-www-form-urlencoded'
-		  }
+			method: 'POST',
+			body: formData,
+			headers: {
+				'Content-Type':'application/x-www-form-urlencoded'
+			}
 		}).then(response => {
 		  console.log(response)
 		})
