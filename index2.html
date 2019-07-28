@@ -85,6 +85,7 @@
 
 				let up = new Upload({
 					url: 'https://cloud.vegasegamingclub.com/api/media',
+					uploadingStaff: true,
 					list: '#files',
 					item: template,
 					progressor: '.progressor',
@@ -140,7 +141,13 @@
 				})
 
 				document.querySelector('#upload').onchange = function() {
-					up.traverseFile(this.files)
+					let sid = $('#sid').val()
+
+					if (sid.trim().length == 0) {
+						alert('please file staff driver before upload photo')
+					} else {
+						up.traverseFile(this.files)
+					}
 				}
 
 				// document.createElement('section').ondrop = function (evt) {
@@ -150,24 +157,26 @@
 				// 	evt.stopPropagation()
 				// }
 
-				loadImage()
+				// loadImage()
 
-				$('#files').on('click', 'a', function(e) {
-					let id = $(e.target).attr('id')
-					deleteImage(id)
-					console.log('id', id)
-				})
+				// $('#files').on('click', 'a', function(e) {
+				// 	let id = $(e.target).attr('id')
+				// 	deleteImage(id)
+				// 	console.log('id', id)
+				// })
 			}
 		</script>
 	</head>
 	<body>
-		<h1 class="header">Vegas Jackpot Upload</h1>
+		<h1 class="header">Staff Photo Upload</h1>
 		<form id="uploadform">
 			<div class="album" id="album">
 				<ul class="files sortable grid" id="files"></ul>
 
 				<div class="clearfix"></div>
-
+				<div class="stf">
+					<input id="sid" type="text" placeholder="Staff ID" />
+				</div>
 				<div id="drop-area">
 					<div class="upload-wrapper">
 						+ Choose Photos or Drop Photos Here
@@ -176,7 +185,6 @@
 							class="upload"
 							type="file"
 							name="file"
-							multiple="true"
 						/>
 					</div>
 				</div>
