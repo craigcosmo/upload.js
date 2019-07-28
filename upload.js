@@ -131,7 +131,7 @@ class Upload {
 			if (this.option.uploadingStaff) {
 				category = $('#sid').val()
 			}
-			FD.append('category', 'jackpot')
+			FD.append('category', category)
 			FD.append('file', file)
 
 			// console.log('form', FD)
