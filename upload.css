@@ -1,10 +1,27 @@
 /* base */
-html{box-sizing: border-box;}
-*{margin: 0;padding: 0; box-sizing: inherit;}
-*:before, *:after {box-sizing: inherit;}
-html,body {width: 100%;height: 100%; font-family: 'helvetica'}
-button{border: none; outline: none;}
-.clearfix{
+html {
+	box-sizing: border-box;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+html,
+body {
+	width: 100%;
+	height: 100%;
+	font-family: 'helvetica';
+}
+button {
+	border: none;
+	outline: none;
+}
+.clearfix {
 	clear: both;
 }
 
@@ -15,20 +32,21 @@ button{border: none; outline: none;}
 	position: relative;
 }
 .files {
-	margin-bottom: 70px
+	margin-bottom: 70px;
 }
 .files li {
 	list-style-type: none;
 	float: left;
 	position: relative;
 	width: 154px;
-	height:160px;
+	height: 160px;
 	margin: 0 0px 8px 38px;
 }
-.files li a{
+.files li a {
 	text-decoration: none;
 }
-.files li .thumb, .files li img{
+.files li .thumb,
+.files li img {
 	height: 104px;
 	width: 154px;
 	cursor: default;
@@ -37,48 +55,48 @@ button{border: none; outline: none;}
 }
 .files li .thumb {
 	display: inline-block;
-    background-position: center center;
-    background-size: cover;
+	background-position: center center;
+	background-size: cover;
 }
 .minidrop {
 	width: 154px;
 	height: 104px;
 	border-radius: 5px;
 	border: 2px dashed #626262;
-    display: block;
-    font-size: 1.3rem;
-    line-height: 104px;
-    overflow: hidden;
-    margin-left: 40px;
+	display: block;
+	font-size: 1.3rem;
+	line-height: 104px;
+	overflow: hidden;
+	margin-left: 40px;
 	text-align: center;
 	position: relative;
 	float: left;
 }
 .files li .del {
 	position: absolute;
-	color:#fff;
+	color: #fff;
 	text-align: center;
 	padding: 0px 5px 0px 5px;
-	top:5px;
+	top: 5px;
 	right: 3px;
 	font-size: 2.8rem;
 	cursor: pointer;
-	text-shadow: 1px 1px 2px rgba(0,0,0,1);
-	border-radius:50%;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+	border-radius: 50%;
 	border: 1px solid transparent;
 	line-height: 25px;
 	transition: all 0.1s ease;
 }
 .files li .del:hover {
-	border-radius:50%;
-	background: #C0382B;
-	text-shadow: none;
+	/* border-radius:50%; */
+	/* background: #C0382B; */
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 	color: #fff;
-	box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+	/* box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5); */
 	transition: all 0.1s ease;
 }
 .files li .del i {
-	text-shadow:1px 1px 1px rgba(0, 0, 0, 1); 
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
 }
 .files li .set {
 	border: solid 1px #aaa;
@@ -91,7 +109,7 @@ button{border: none; outline: none;}
 	left: 5px;
 	font-weight: 300;
 	transition: all 0.1s ease;
-	background: rgba(255,255,255,0.8);
+	background: rgba(255, 255, 255, 0.8);
 }
 .files li .set:hover {
 	border-color: #33cc77;
@@ -111,13 +129,13 @@ button{border: none; outline: none;}
 	cursor: grabbing;
 }
 .files li .red {
-	color: #33cc77
+	color: #33cc77;
 }
 .files li .no {
 	position: absolute;
 	left: 0px;
 	top: -22px;
-	bottom:20px;
+	bottom: 20px;
 	z-index: 9;
 	color: #aaa;
 }
@@ -130,13 +148,13 @@ button{border: none; outline: none;}
 	margin: auto;
 	color: #626262;
 }
-.upload{
+.upload {
 	cursor: pointer;
 	font-size: 460px;
 	margin: 0;
 	opacity: 0;
 	padding: 0;
-	position: absolute; 
+	position: absolute;
 	right: 0;
 	top: 0;
 	height: 100%;
@@ -150,14 +168,22 @@ button{border: none; outline: none;}
 	border-radius: 5px;
 }
 .progress-container:before {
-	content: "";
+	content: '';
 	display: inline-block;
 	vertical-align: middle;
+}
+.stf {
+	padding: 20px;
+	text-align: center;
+}
+.stf input {
+	border: 1px solid #000;
+	padding: 10px;
 }
 .progressor {
 	position: absolute;
 	margin: auto;
-	right:0;
+	right: 0;
 	left: 0;
 	top: 0;
 	bottom: 0;
@@ -165,7 +191,7 @@ button{border: none; outline: none;}
 	height: 10%;
 	font-size: 2rem;
 	color: #999;
-	font-weight: 300
+	font-weight: 300;
 }
 .progress-bar-container {
 	border-radius: 3px;
@@ -173,22 +199,26 @@ button{border: none; outline: none;}
 	position: absolute;
 	bottom: 10%;
 	margin: auto;
-	right:0;
+	right: 0;
 	left: 0;
-	background: #ddd
+	background: #ddd;
+}
+.header {
+	text-align: center;
+	padding-top: 20px;
 }
 .progress-bar {
 	border-radius: 3px;
 	background: #63e46a;
 	height: 3px;
-	width: 1px
+	width: 1px;
 }
 #drop-area {
 	border: 2px dashed #626262;
 	height: 300px;
-	margin:0 auto;
+	margin: 0 auto;
 	padding: 10px;
 	text-align: center;
 	width: 400px;
-	border-radius: 5px
+	border-radius: 5px;
 }
